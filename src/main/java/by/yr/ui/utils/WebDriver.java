@@ -1,4 +1,4 @@
-package by.yr.ui;
+package by.yr.ui.utils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;

@@ -1,7 +1,7 @@
 package by.yr.ui;
 
+import by.yr.ui.pages.SearchPage;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -10,14 +10,6 @@ import org.junit.jupiter.params.provider.ValueSource;
 import java.util.List;
 
 public class SearchTest extends BaseTest {
-
-    @BeforeEach
-    public void openSiteAcceptCookies() {
-        HomePage homePage = new HomePage();
-        homePage.openSite();
-        homePage.acceptCookies();
-        homePage.closePopup();
-    }
 
     @Test
     @DisplayName("Verify the msg when no results found")
@@ -61,5 +53,3 @@ public class SearchTest extends BaseTest {
                 "Search result does not contain " + keyword);
     }
 }
-
-

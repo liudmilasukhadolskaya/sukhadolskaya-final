@@ -1,4 +1,4 @@
-package by.yr.ui;
+package by.yr.ui.pages;
 
 import org.openqa.selenium.WebDriver;
 
@@ -17,47 +17,47 @@ public class LoginPage {
     private WebDriver driver;
 
     public LoginPage() {
-        this.driver = by.yr.ui.WebDriver.getDriver();
+        this.driver = by.yr.ui.utils.WebDriver.getDriver();
     }
 
     public String getTitleReturnToHP() {
-        return by.yr.ui.WebDriver.getTextFromElement(LINK_RETURN_TO_HP);
+        return by.yr.ui.utils.WebDriver.getTextFromElement(LINK_RETURN_TO_HP);
     }
 
     public String getTitleIncorrectAccount() {
-        return by.yr.ui.WebDriver.getTextFromElement(TITLE_INCORRECT_ACCOUNT_DATA);
+        return by.yr.ui.utils.WebDriver.getTextFromElement(TITLE_INCORRECT_ACCOUNT_DATA);
     }
 
     public String getTitleInvalidEmail() {
-        return by.yr.ui.WebDriver.getTextFromElement(TITLE_EMAIL_VALIDATION);
+        return by.yr.ui.utils.WebDriver.getTextFromElement(TITLE_EMAIL_VALIDATION);
     }
 
     public String getTitleInvalidPassword() {
-        return by.yr.ui.WebDriver.getTextFromElement(TITLE_PSW_VALIDATION);
+        return by.yr.ui.utils.WebDriver.getTextFromElement(TITLE_PSW_VALIDATION);
     }
 
     public void sendKeysEmail(String email) {
-      by.yr.ui.WebDriver.sendKeysToElement(INPUT_EMAIL, email);
+      by.yr.ui.utils.WebDriver.sendKeysToElement(INPUT_EMAIL, email);
     }
 
     public void sendKeysPsw(String password) {
-        by.yr.ui.WebDriver.sendKeysToElement(INPUT_PASSWORD, password);
+        by.yr.ui.utils.WebDriver.sendKeysToElement(INPUT_PASSWORD, password);
     }
 
     public void clickLogin() {
-        by.yr.ui.WebDriver.clickElement(BUTTON_SUBMIT);
+        by.yr.ui.utils.WebDriver.clickElement(BUTTON_SUBMIT);
     }
 
 
     public void clickCreateNewPassword() {
-        by.yr.ui.WebDriver.clickElement(LINK_CREATE_NEW_PSW);
+        by.yr.ui.utils.WebDriver.clickElement(LINK_CREATE_NEW_PSW);
     }
 
     public String getCreateNewPasswordText() {
-        return by.yr.ui.WebDriver.getTextFromElement(TITLE_NEW_PSW);
+        return by.yr.ui.utils.WebDriver.getTextFromElement(TITLE_NEW_PSW);
     }
 
     public String getPersonalAccountText() {
-        return by.yr.ui.WebDriver.getTextFromElement(TITLE_IN_PERSONAL_ACCOUNT);
+        return by.yr.ui.utils.WebDriver.getTextFromElement(TITLE_IN_PERSONAL_ACCOUNT);
     }
 }
