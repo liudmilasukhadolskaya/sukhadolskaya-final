@@ -60,4 +60,9 @@ public class LoginPage {
     public String getPersonalAccountText() {
         return by.yr.ui.utils.WebDriver.getTextFromElement(TITLE_IN_PERSONAL_ACCOUNT);
     }
+
+
+    public void clickEmailField(){
+        by.yr.ui.utils.WebDriver.clickElement(INPUT_EMAIL);
+    }
 }
