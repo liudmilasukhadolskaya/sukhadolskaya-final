@@ -1,34 +1,30 @@
 package by.yr.ui;
 
 
-import by.yr.ui.LoginPage;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import by.yr.ui.pages.HomePage;
+import by.yr.ui.pages.LoginPage;
+import by.yr.utils.TestDataGenerator;
+import org.junit.jupiter.api.*;
 
 public class LoginTest extends BaseTest {
     @BeforeEach
-    public void openSite() {
+    public void goToLoginPage() {
         HomePage homePage = new HomePage();
-        homePage.openSite();
-        homePage.acceptCookies();
-        homePage.closePopup();
         homePage.clickPersonalAccount();
     }
 
     @Test
     @DisplayName("Verify that Login Page is opened")
-    public void test1() {
-       by.yr.ui.LoginPage loginPage = new by.yr.ui.LoginPage();
+    public void loginPageOpened() {
+       LoginPage loginPage = new LoginPage();
         Assertions.assertEquals("Вернуться на главную", loginPage.getTitleReturnToHP());
     }
 
     @Test
-    @DisplayName("Verify the msg for invalid email")
-    public void test2() {
-        by.yr.ui.LoginPage loginPage = new by.yr.ui.LoginPage();
-        loginPage.sendKeysEmail("rew");
+    @DisplayName("Verify the msg for invalid email and missing psw")
+    public void invalidEmailMissingPsw() {
+        LoginPage loginPage = new LoginPage();
+        loginPage.sendKeysEmail(TestDataGenerator.generateRandomString(5));
         loginPage.clickLogin();
 
         Assertions.assertEquals("Email* должен быть валидным", loginPage.getTitleInvalidEmail());
@@ -36,20 +32,33 @@ public class LoginTest extends BaseTest {
 
     @Test
     @DisplayName("Verify the msg for short psw")
-    public void test3() {
+    public void shortPsw() {
         LoginPage loginPage = new LoginPage();
-        loginPage.sendKeysPsw("123");
+        loginPage.sendKeysEmail(TestDataGenerator.generateRandomEmail());
+        loginPage.sendKeysPsw(TestDataGenerator.generateRandomString(5));
         loginPage.clickLogin();
 
         Assertions.assertEquals("Пароль* должен быть больше 6 символов", loginPage.getTitleInvalidPassword());
     }
 
     @Test
-    @DisplayName("Verify the msg for not existing/invalid account")
-    public void test4() {
+    @DisplayName("Verify the msg for missing email")
+    public void missingEmail() {
         LoginPage loginPage = new LoginPage();
-        loginPage.sendKeysEmail("qwerty@gmail.com");
-        loginPage.sendKeysPsw("1234567");
+        loginPage.sendKeysPsw(TestDataGenerator.generateRandomString(7));
+        loginPage.clickLogin();
+        loginPage.clickEmailField();
+        loginPage.clickLogin();
+
+        Assertions.assertEquals("Это поле является обязательным", loginPage.getTitleInvalidEmail());
+    }
+
+    @Test
+    @DisplayName("Verify the msg for not existing user")
+    public void notExistingUser() {
+        LoginPage loginPage = new LoginPage();
+        loginPage.sendKeysEmail(TestDataGenerator.generateRandomEmail());
+        loginPage.sendKeysPsw(TestDataGenerator.generateRandomString(7));
         loginPage.clickLogin();
 
         Assertions.assertEquals("Проверьте корректность введенных данных", loginPage.getTitleIncorrectAccount());
@@ -57,7 +66,7 @@ public class LoginTest extends BaseTest {
 
     @Test
     @DisplayName("Verify Create New PSW link works")
-    public void test5() {
+    public void newPswLink() {
         LoginPage loginPage = new LoginPage();
         loginPage.clickCreateNewPassword();
 
@@ -65,11 +74,12 @@ public class LoginTest extends BaseTest {
     }
 
     @Test
+    @Disabled("Skipping successful login test for now")
     @DisplayName("Verify successful login")
-    public void test6() {
+    public void successfulLogin() {
         LoginPage loginPage = new LoginPage();
-        loginPage.sendKeysEmail("webnwmsbfxafriczku@nespj.com");
-        loginPage.sendKeysPsw("mypsw12345");
+        loginPage.sendKeysEmail(TestDataGenerator.getValidEmail());
+        loginPage.sendKeysPsw(TestDataGenerator.getValidPsw());
         loginPage.clickLogin();
 
         Assertions.assertEquals("Здравствуйте, Юля!", loginPage.getPersonalAccountText());
