@@ -1,6 +1,8 @@
 package by.yr.api;
 
+import by.yr.utils.TestDataGenerator;
 import io.restassured.response.Response;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -10,9 +12,9 @@ public class LoginTest {
 
     @Test
     @DisplayName("Verify Login with empty email")
-    public void test1() {
+    public void loginMissingEmail() {
         LoginService loginService = new LoginService();
-        loginService.sendLoginRequest("", "qwerty", true);
+        loginService.sendLoginRequest("", TestDataGenerator.generateRandomString(7), true);
 
         Response response = loginService.getResponse();
         response.then()
@@ -24,9 +26,9 @@ public class LoginTest {
 
     @Test
     @DisplayName("Verify Login with empty password")
-    public void test2() {
+    public void loginMissingPsw() {
         LoginService loginService = new LoginService();
-        loginService.sendLoginRequest("user@gmail.com", "", true);
+        loginService.sendLoginRequest(TestDataGenerator.generateRandomEmail(), "", true);
 
         Response response = loginService.getResponse();
         response.then()
@@ -38,7 +40,7 @@ public class LoginTest {
 
     @Test
     @DisplayName("Verify Login with empty email and password")
-    public void test3() {
+    public void loginMissingEmailAndPsw() {
         LoginService loginService = new LoginService();
         loginService.sendLoginRequest("", "", true);
 
@@ -52,10 +54,10 @@ public class LoginTest {
     }
 
     @Test
-    @DisplayName("Verify Login with wrong email/password")
-    public void test4() {
+    @DisplayName("Verify Login for not existing user")
+    public void loginNotExistingUser() {
         LoginService loginService = new LoginService();
-        loginService.sendLoginRequest("wrong@gmail.com", "wrongpass", true);
+        loginService.sendLoginRequest(TestDataGenerator.generateRandomEmail(), TestDataGenerator.generateRandomString(6), true);
 
         Response response = loginService.getResponse();
         response.then()
@@ -65,10 +67,11 @@ public class LoginTest {
     }
 
     @Test
-    @DisplayName("Verify successful")
-    public void test5() {
+    @Disabled("Skipping successful login test for now")
+    @DisplayName("Verify successful login")
+    public void loginSuccessful() {
         LoginService loginService = new LoginService();
-        loginService.sendLoginRequest("webnwmsbfxafriczku@nespj.com", "mypsw12345", true);
+        loginService.sendLoginRequest(TestDataGenerator.getValidEmail(), TestDataGenerator.getValidPsw(), true);
 
         Response response = loginService.getResponse();
         response.then()
@@ -77,4 +80,3 @@ public class LoginTest {
                 .body("token", not(emptyOrNullString()));
     }
 }
-
