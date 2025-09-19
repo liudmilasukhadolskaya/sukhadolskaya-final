@@ -1,11 +1,21 @@
 package by.yr.ui;
 
-import by.yr.ui.WebDriver;
+import by.yr.ui.pages.HomePage;
+import by.yr.ui.utils.WebDriver;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 
 public class BaseTest {
+    @BeforeEach
+    public void openSiteAcceptCookiesClosePopup(){
+        HomePage homePage = new HomePage();
+        homePage.openSite();
+        homePage.acceptCookies();
+        homePage.closePopup();
+    }
+
   @AfterEach
     public void closeBrowser(){
-        by.yr.ui.WebDriver.quit();
+        WebDriver.quit();
     }
 }

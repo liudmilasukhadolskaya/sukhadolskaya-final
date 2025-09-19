@@ -1,6 +1,7 @@
 package by.yr.ui;
 
-import by.yr.CartPage;
+import by.yr.ui.pages.CartPage;
+import by.yr.ui.pages.SearchPage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -10,12 +11,7 @@ public class CartTest extends BaseTest {
     private SearchPage searchPage;
 
     @BeforeEach
-    public void openSiteAndRunSearchByCategory() {
-        HomePage homePage = new HomePage();
-        homePage.openSite();
-        homePage.acceptCookies();
-        homePage.closePopup();
-
+    public void runSearchByCategory() {
         searchPage = new SearchPage();
         searchPage.pickRandomCategory();
     }
@@ -116,7 +112,6 @@ public class CartTest extends BaseTest {
 
         String expectedProduct1 = searchPage.getProductNameByPosition(1).toLowerCase();
         String expectedPrice1 = searchPage.getPriceForProductByPosition(1) + " Br";
-
 
         CartPage cartPage = new CartPage();
         cartPage.clickAddToCartItem(1);

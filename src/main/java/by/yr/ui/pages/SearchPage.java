@@ -1,5 +1,6 @@
-package by.yr.ui;
+package by.yr.ui.pages;
 
+import by.yr.ui.utils.WebDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
@@ -20,30 +21,30 @@ public class SearchPage {
     private WebElement selectedCategory;
 
     public void sendKeysSearch(String search) {
-        by.yr.ui.WebDriver.sendKeysToElement(INPUT_SEARCH_FIELD, search + Keys.ENTER);
+        WebDriver.sendKeysToElement(INPUT_SEARCH_FIELD, search + Keys.ENTER);
     }
 
     public String getProductNameByPosition(int index) {
         String xpath = String.format(TITLES_FROM_SEARCH_RESULT_TEMPLATE, index);
-        return by.yr.ui.WebDriver.getTextFromElement(xpath);
+        return WebDriver.getTextFromElement(xpath);
     }
 
     public List<String> getSearchResultItemsTitleText() {
-        return by.yr.ui.WebDriver.findElements(TITLES_FROM_SEARCH_RESULT).stream()
-                                 .map(el -> el.getText().toLowerCase()
+        return WebDriver.findElements(TITLES_FROM_SEARCH_RESULT).stream()
+                        .map(el -> el.getText().toLowerCase()
                                               .replace("\"", "").trim()).toList();
     }
 
     public String getNoResultsMsg() {
-        return by.yr.ui.WebDriver.getTextFromElement(TITLE_NO_RESULTS);
+        return WebDriver.getTextFromElement(TITLE_NO_RESULTS);
     }
 
     public List<WebElement> getAllTopNavCategories() {
-        return by.yr.ui.WebDriver.getDriver().findElements(By.xpath(TOP_NAV_CATEGORIES));
+        return WebDriver.getDriver().findElements(By.xpath(TOP_NAV_CATEGORIES));
     }
 
     public String getPriceForProductByPosition(int index) {
-        return by.yr.ui.WebDriver.getTextFromElement(String.format(PRICE_FOR_PRODUCT_TEXT, index));
+        return WebDriver.getTextFromElement(String.format(PRICE_FOR_PRODUCT_TEXT, index));
     }
 
     public void pickRandomCategory() {

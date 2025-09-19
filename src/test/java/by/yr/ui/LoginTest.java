@@ -1,6 +1,5 @@
 package by.yr.ui;
 
-
 import by.yr.ui.pages.HomePage;
 import by.yr.ui.pages.LoginPage;
 import by.yr.utils.TestDataGenerator;
