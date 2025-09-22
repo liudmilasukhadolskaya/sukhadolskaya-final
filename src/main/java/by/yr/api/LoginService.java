@@ -3,7 +3,6 @@ package by.yr.api;
 import io.restassured.response.Response;
 
 public class LoginService {
-    private final String URL = "https://api.y-r.by/api/v1/token";
     private Response response;
 
 
@@ -15,7 +14,7 @@ public class LoginService {
                 + "\"remember\":" + remember
                 + "}";
 
-        apiService.doPost(URL, body);
+        apiService.doPost(ApiConstants.LOGIN_URL, body);
         response = apiService.getResponse();
     }
 
