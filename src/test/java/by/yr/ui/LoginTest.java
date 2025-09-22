@@ -6,6 +6,14 @@ import by.yr.utils.TestDataGenerator;
 import org.junit.jupiter.api.*;
 
 public class LoginTest extends BaseTest {
+        public static final String RETURN_TO_HOME = "Вернуться на главную";
+        public static final String INVALID_EMAIL = "Email* должен быть валидным";
+        public static final String SHORT_PASSWORD = "Пароль* должен быть больше 6 символов";
+        public static final String REQUIRED_FIELD = "Это поле является обязательным";
+        public static final String INCORRECT_ACCOUNT = "Проверьте корректность введенных данных";
+        public static final String CREATE_NEW_PASSWORD = "Новый пароль";
+        public static final String SUCCESSFUL_LOGIN = "Здравствуйте, Юля!";
+
     @BeforeEach
     public void goToLoginPage() {
         HomePage homePage = new HomePage();
@@ -16,7 +24,7 @@ public class LoginTest extends BaseTest {
     @DisplayName("Verify that Login Page is opened")
     public void loginPageOpened() {
        LoginPage loginPage = new LoginPage();
-        Assertions.assertEquals("Вернуться на главную", loginPage.getTitleReturnToHP());
+        Assertions.assertEquals(RETURN_TO_HOME, loginPage.getTitleReturnToHP());
     }
 
     @Test
@@ -26,7 +34,7 @@ public class LoginTest extends BaseTest {
         loginPage.sendKeysEmail(TestDataGenerator.generateRandomString(5));
         loginPage.clickLogin();
 
-        Assertions.assertEquals("Email* должен быть валидным", loginPage.getTitleInvalidEmail());
+        Assertions.assertEquals(INVALID_EMAIL, loginPage.getTitleInvalidEmail());
     }
 
     @Test
@@ -37,7 +45,7 @@ public class LoginTest extends BaseTest {
         loginPage.sendKeysPsw(TestDataGenerator.generateRandomString(5));
         loginPage.clickLogin();
 
-        Assertions.assertEquals("Пароль* должен быть больше 6 символов", loginPage.getTitleInvalidPassword());
+        Assertions.assertEquals(SHORT_PASSWORD, loginPage.getTitleInvalidPassword());
     }
 
     @Test
@@ -49,7 +57,7 @@ public class LoginTest extends BaseTest {
         loginPage.clickEmailField();
         loginPage.clickLogin();
 
-        Assertions.assertEquals("Это поле является обязательным", loginPage.getTitleInvalidEmail());
+        Assertions.assertEquals(REQUIRED_FIELD, loginPage.getTitleInvalidEmail());
     }
 
     @Test
@@ -60,7 +68,7 @@ public class LoginTest extends BaseTest {
         loginPage.sendKeysPsw(TestDataGenerator.generateRandomString(7));
         loginPage.clickLogin();
 
-        Assertions.assertEquals("Проверьте корректность введенных данных", loginPage.getTitleIncorrectAccount());
+        Assertions.assertEquals(INCORRECT_ACCOUNT, loginPage.getTitleIncorrectAccount());
     }
 
     @Test
@@ -69,7 +77,7 @@ public class LoginTest extends BaseTest {
         LoginPage loginPage = new LoginPage();
         loginPage.clickCreateNewPassword();
 
-        Assertions.assertEquals("Новый пароль", loginPage.getCreateNewPasswordText());
+        Assertions.assertEquals(CREATE_NEW_PASSWORD, loginPage.getCreateNewPasswordText());
     }
 
     @Test
@@ -81,6 +89,6 @@ public class LoginTest extends BaseTest {
         loginPage.sendKeysPsw(TestDataGenerator.getValidPsw());
         loginPage.clickLogin();
 
-        Assertions.assertEquals("Здравствуйте, Юля!", loginPage.getPersonalAccountText());
+        Assertions.assertEquals(SUCCESSFUL_LOGIN, loginPage.getPersonalAccountText());
     }
 }
