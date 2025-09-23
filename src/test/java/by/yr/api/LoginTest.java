@@ -14,9 +14,8 @@ public class LoginTest {
     @DisplayName("Verify Login with empty email")
     public void loginMissingEmail() {
         LoginService loginService = new LoginService();
-        loginService.sendLoginRequest("", TestDataGenerator.generateRandomString(7), true);
+        Response response = loginService.sendLoginRequest("", TestDataGenerator.generateRandomString(7), true);
 
-        Response response = loginService.getResponse();
         response.then()
                 .log().all()
                 .statusCode(422)
@@ -28,9 +27,8 @@ public class LoginTest {
     @DisplayName("Verify Login with empty password")
     public void loginMissingPsw() {
         LoginService loginService = new LoginService();
-        loginService.sendLoginRequest(TestDataGenerator.generateRandomEmail(), "", true);
+        Response response = loginService.sendLoginRequest(TestDataGenerator.generateRandomEmail(), "", true);
 
-        Response response = loginService.getResponse();
         response.then()
                 .log().all()
                 .statusCode(422)
@@ -42,9 +40,8 @@ public class LoginTest {
     @DisplayName("Verify Login with empty email and password")
     public void loginMissingEmailAndPsw() {
         LoginService loginService = new LoginService();
-        loginService.sendLoginRequest("", "", true);
+        Response response = loginService.sendLoginRequest("", "", true);
 
-        Response response = loginService.getResponse();
         response.then()
                 .log().all()
                 .statusCode(422)
@@ -57,9 +54,8 @@ public class LoginTest {
     @DisplayName("Verify Login for not existing user")
     public void loginNotExistingUser() {
         LoginService loginService = new LoginService();
-        loginService.sendLoginRequest(TestDataGenerator.generateRandomEmail(), TestDataGenerator.generateRandomString(6), true);
+        Response response = loginService.sendLoginRequest(TestDataGenerator.generateRandomEmail(), TestDataGenerator.generateRandomString(6), true);
 
-        Response response = loginService.getResponse();
         response.then()
                 .log().all()
                 .statusCode(401)
@@ -71,9 +67,8 @@ public class LoginTest {
     @DisplayName("Verify successful login")
     public void loginSuccessful() {
         LoginService loginService = new LoginService();
-        loginService.sendLoginRequest(TestDataGenerator.getValidEmail(), TestDataGenerator.getValidPsw(), true);
+        Response response = loginService.sendLoginRequest(TestDataGenerator.getValidEmail(), TestDataGenerator.getValidPsw(), true);
 
-        Response response = loginService.getResponse();
         response.then()
                 .log().all()
                 .statusCode(200)
