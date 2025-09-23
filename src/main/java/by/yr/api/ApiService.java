@@ -8,8 +8,6 @@ import java.util.Map;
 import static io.restassured.RestAssured.given;
 
 public class ApiService {
-    private Response response;
-
 
     private Map<String, String> getDefaultHeaders() {
         Map<String, String> headers = new HashMap<>();
@@ -18,23 +16,19 @@ public class ApiService {
         return headers;
     }
 
-    public void doPost(String url, String body) {
-        response = given()
+    public Response doPost(String url, String body) {
+        return given()
                 .headers(getDefaultHeaders())
                 .body(body)
                 .when()
                 .post(url);
     }
 
-    public void doGet(String url, Map<String, Object> queryParams) {
-        response = given()
+    public Response doGet(String url, Map<String, Object> queryParams) {
+        return given()
                 .headers(getDefaultHeaders())
                 .queryParams(queryParams != null ? queryParams : new HashMap<>())
                 .when()
                 .get(url);
-    }
-
-    public Response getResponse() {
-        return response;
     }
 }
