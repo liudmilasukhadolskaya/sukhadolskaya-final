@@ -13,7 +13,7 @@ public class SearchTest extends BaseTest {
 
     @Test
     @DisplayName("Verify the msg when no results found")
-    public void test1() {
+    public void noResultsFound() {
         SearchPage searchPage = new SearchPage();
         searchPage.sendKeysSearch("keyboard");
 
@@ -25,7 +25,7 @@ public class SearchTest extends BaseTest {
     @ParameterizedTest
     @ValueSource(strings = {"крем", "шампунь", "гель", "маска"})
     @DisplayName("Verify that search result is mostly relevant (60%)")
-    void test2(String keyword) {
+    void searchResultIsRelevant(String keyword) {
         SearchPage searchPage = new SearchPage();
         searchPage.sendKeysSearch(keyword);
 
@@ -36,7 +36,7 @@ public class SearchTest extends BaseTest {
 
     @Test
     @DisplayName("Verify search for a specific item")
-    public void test3() {
+    public void searchForSpecificProduct() {
         SearchPage searchPage = new SearchPage();
         String keyword = "парфюмерная вода ondes positives";
         searchPage.sendKeysSearch(keyword);

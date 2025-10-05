@@ -1,5 +1,6 @@
 package by.yr.ui.pages;
 
+import by.yr.ui.utils.DriverUtils;
 import org.openqa.selenium.WebDriver;
 
 public class LoginPage {
@@ -17,52 +18,55 @@ public class LoginPage {
     private WebDriver driver;
 
     public LoginPage() {
-        this.driver = by.yr.ui.utils.WebDriver.getDriver();
+        this.driver = DriverUtils.getDriver();
     }
 
     public String getTitleReturnToHP() {
-        return by.yr.ui.utils.WebDriver.getTextFromElement(LINK_RETURN_TO_HP);
+        return DriverUtils.getTextFromElement(LINK_RETURN_TO_HP);
     }
 
     public String getTitleIncorrectAccount() {
-        return by.yr.ui.utils.WebDriver.getTextFromElement(TITLE_INCORRECT_ACCOUNT_DATA);
+        return DriverUtils.getTextFromElement(TITLE_INCORRECT_ACCOUNT_DATA);
     }
 
     public String getTitleInvalidEmail() {
-        return by.yr.ui.utils.WebDriver.getTextFromElement(TITLE_EMAIL_VALIDATION);
+        return DriverUtils.getTextFromElement(TITLE_EMAIL_VALIDATION);
     }
 
     public String getTitleInvalidPassword() {
-        return by.yr.ui.utils.WebDriver.getTextFromElement(TITLE_PSW_VALIDATION);
+        return DriverUtils.getTextFromElement(TITLE_PSW_VALIDATION);
     }
 
     public void sendKeysEmail(String email) {
-      by.yr.ui.utils.WebDriver.sendKeysToElement(INPUT_EMAIL, email);
+      DriverUtils.sendKeysToElement(INPUT_EMAIL, email);
     }
 
     public void sendKeysPsw(String password) {
-        by.yr.ui.utils.WebDriver.sendKeysToElement(INPUT_PASSWORD, password);
+        DriverUtils.sendKeysToElement(INPUT_PASSWORD, password);
     }
 
     public void clickLogin() {
-        by.yr.ui.utils.WebDriver.clickElement(BUTTON_SUBMIT);
+        DriverUtils.clickElement(BUTTON_SUBMIT);
+    }
+
+    public void clickLoginWithActions(){
+        DriverUtils.clickElementWithActions(BUTTON_SUBMIT);
     }
 
 
     public void clickCreateNewPassword() {
-        by.yr.ui.utils.WebDriver.clickElement(LINK_CREATE_NEW_PSW);
+        DriverUtils.clickElement(LINK_CREATE_NEW_PSW);
     }
 
     public String getCreateNewPasswordText() {
-        return by.yr.ui.utils.WebDriver.getTextFromElement(TITLE_NEW_PSW);
+        return DriverUtils.getTextFromElement(TITLE_NEW_PSW);
     }
 
     public String getPersonalAccountText() {
-        return by.yr.ui.utils.WebDriver.getTextFromElement(TITLE_IN_PERSONAL_ACCOUNT);
+        return DriverUtils.getTextFromElement(TITLE_IN_PERSONAL_ACCOUNT);
     }
 
-
     public void clickEmailField(){
-        by.yr.ui.utils.WebDriver.clickElement(INPUT_EMAIL);
+        DriverUtils.clickElement(INPUT_EMAIL);
     }
 }

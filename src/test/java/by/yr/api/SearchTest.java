@@ -28,6 +28,7 @@ public class SearchTest {
                 () -> assertTrue(searchService.getDataSize(response)>0,  "data.size() > 0"),
                 () -> ApiAssertions.assertDefaultMeta(response));
     }
+
     @Test
     @DisplayName("Verify search for specific product")
     public void searchSpecificProduct() {
@@ -40,7 +41,6 @@ public class SearchTest {
                 ()->assertTrue(titles.stream().anyMatch(title->title.contains(keyword)),"At least one item contains "+keyword),
                 () -> ApiAssertions.assertDefaultMeta(response));
     }
-
 
     @Test
     @DisplayName("Verify the search when no results found")
