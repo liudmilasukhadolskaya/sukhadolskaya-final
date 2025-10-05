@@ -1,7 +1,7 @@
 package by.yr.ui;
 
 import by.yr.ui.pages.HomePage;
-import by.yr.ui.utils.WebDriver;
+import by.yr.ui.utils.DriverUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
@@ -16,6 +16,6 @@ public class BaseTest {
 
   @AfterEach
     public void closeBrowser(){
-        WebDriver.quit();
+        DriverUtils.quit();
     }
 }

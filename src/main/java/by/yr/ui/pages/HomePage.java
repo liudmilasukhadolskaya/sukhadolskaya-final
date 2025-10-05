@@ -1,6 +1,6 @@
 package by.yr.ui.pages;
 
-import by.yr.ui.utils.WebDriver;
+import by.yr.ui.utils.DriverUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -19,17 +19,17 @@ public class HomePage {
     }
 
     public void openSite() {
-        WebDriver.getDriver().get(URL);
+        DriverUtils.getDriver().get(URL);
     }
 
     public HomePage acceptCookies() {
         try {
-            WebDriverWait wait = new WebDriverWait(WebDriver.getDriver(), Duration.ofSeconds(10));
-            WebElement acceptBtn = wait.until(
+            WebDriverWait wait = new WebDriverWait(DriverUtils.getDriver(), Duration.ofSeconds(10));
+            wait.until(
                     ExpectedConditions.elementToBeClickable(By.xpath(BUTTON_ACCEPT_COOKIES))
             );
-            Thread.sleep(500);
-            WebDriver.clickElement(BUTTON_ACCEPT_COOKIES);
+            DriverUtils.sleep(1);
+            DriverUtils.clickElement(BUTTON_ACCEPT_COOKIES);
             System.out.println("✅ Cookies accepted.");
         } catch (Exception e) {
             System.out.println("⚠️ Cookies msg not found or already closed.");
@@ -39,11 +39,11 @@ public class HomePage {
 
     public HomePage closePopup() {
         try {
-            WebDriverWait wait = new WebDriverWait(WebDriver.getDriver(), Duration.ofSeconds(15));
+            WebDriverWait wait = new WebDriverWait(DriverUtils.getDriver(), Duration.ofSeconds(15));
             WebElement closeBtn = wait.until(
                     ExpectedConditions.elementToBeClickable(By.xpath(BUTTON_CLOSE_POPUP))
             );
-            WebDriver.clickElement(BUTTON_CLOSE_POPUP);
+            DriverUtils.clickElement(BUTTON_CLOSE_POPUP);
             System.out.println("✅ Popup closed.");
         } catch (Exception e) {
             System.out.println("⚠️ Popup not found or already closed.");
@@ -52,7 +52,7 @@ public class HomePage {
     }
 
     public void clickPersonalAccount() {
-        WebDriver.clickElement(LINK_PERSONAL_ACCOUNT);
+        DriverUtils.clickElement(LINK_PERSONAL_ACCOUNT);
     }
 }
 

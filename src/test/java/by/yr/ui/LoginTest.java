@@ -6,13 +6,13 @@ import by.yr.utils.TestDataGenerator;
 import org.junit.jupiter.api.*;
 
 public class LoginTest extends BaseTest {
-        public static final String RETURN_TO_HOME = "Вернуться на главную";
-        public static final String INVALID_EMAIL = "Email* должен быть валидным";
-        public static final String SHORT_PASSWORD = "Пароль* должен быть больше 6 символов";
-        public static final String REQUIRED_FIELD = "Это поле является обязательным";
-        public static final String INCORRECT_ACCOUNT = "Проверьте корректность введенных данных";
-        public static final String CREATE_NEW_PASSWORD = "Новый пароль";
-        public static final String SUCCESSFUL_LOGIN = "Здравствуйте, Юля!";
+        public static final String RETURN_TO_HOME_TITLE = "Вернуться на главную";
+        public static final String INVALID_EMAIL_MSG = "Email* должен быть валидным";
+        public static final String SHORT_PASSWORD_MSG = "Пароль* должен быть больше 6 символов";
+        public static final String REQUIRED_FIELD_MSG = "Это поле является обязательным";
+        public static final String INCORRECT_ACCOUNT_MSG = "Проверьте корректность введенных данных";
+        public static final String CREATE_NEW_PASSWORD_TITLE = "Новый пароль";
+        public static final String SUCCESSFUL_LOGIN_TITLE = "Здравствуйте, Юля!";
 
     @BeforeEach
     public void goToLoginPage() {
@@ -24,7 +24,7 @@ public class LoginTest extends BaseTest {
     @DisplayName("Verify that Login Page is opened")
     public void loginPageOpened() {
        LoginPage loginPage = new LoginPage();
-        Assertions.assertEquals(RETURN_TO_HOME, loginPage.getTitleReturnToHP());
+        Assertions.assertEquals(RETURN_TO_HOME_TITLE, loginPage.getTitleReturnToHP());
     }
 
     @Test
@@ -32,9 +32,9 @@ public class LoginTest extends BaseTest {
     public void invalidEmailMissingPsw() {
         LoginPage loginPage = new LoginPage();
         loginPage.sendKeysEmail(TestDataGenerator.generateRandomString(5));
-        loginPage.clickLogin();
+        loginPage.clickLoginWithActions();
 
-        Assertions.assertEquals(INVALID_EMAIL, loginPage.getTitleInvalidEmail());
+        Assertions.assertEquals(INVALID_EMAIL_MSG, loginPage.getTitleInvalidEmail());
     }
 
     @Test
@@ -43,9 +43,9 @@ public class LoginTest extends BaseTest {
         LoginPage loginPage = new LoginPage();
         loginPage.sendKeysEmail(TestDataGenerator.generateRandomEmail());
         loginPage.sendKeysPsw(TestDataGenerator.generateRandomString(5));
-        loginPage.clickLogin();
+        loginPage.clickLoginWithActions();
 
-        Assertions.assertEquals(SHORT_PASSWORD, loginPage.getTitleInvalidPassword());
+        Assertions.assertEquals(SHORT_PASSWORD_MSG, loginPage.getTitleInvalidPassword());
     }
 
     @Test
@@ -53,11 +53,11 @@ public class LoginTest extends BaseTest {
     public void missingEmail() {
         LoginPage loginPage = new LoginPage();
         loginPage.sendKeysPsw(TestDataGenerator.generateRandomString(7));
-        loginPage.clickLogin();
+        loginPage.clickLoginWithActions();
         loginPage.clickEmailField();
-        loginPage.clickLogin();
+        loginPage.clickLoginWithActions();
 
-        Assertions.assertEquals(REQUIRED_FIELD, loginPage.getTitleInvalidEmail());
+        Assertions.assertEquals(REQUIRED_FIELD_MSG, loginPage.getTitleInvalidEmail());
     }
 
     @Test
@@ -68,7 +68,7 @@ public class LoginTest extends BaseTest {
         loginPage.sendKeysPsw(TestDataGenerator.generateRandomString(7));
         loginPage.clickLogin();
 
-        Assertions.assertEquals(INCORRECT_ACCOUNT, loginPage.getTitleIncorrectAccount());
+        Assertions.assertEquals(INCORRECT_ACCOUNT_MSG, loginPage.getTitleIncorrectAccount());
     }
 
     @Test
@@ -77,7 +77,7 @@ public class LoginTest extends BaseTest {
         LoginPage loginPage = new LoginPage();
         loginPage.clickCreateNewPassword();
 
-        Assertions.assertEquals(CREATE_NEW_PASSWORD, loginPage.getCreateNewPasswordText());
+        Assertions.assertEquals(CREATE_NEW_PASSWORD_TITLE, loginPage.getCreateNewPasswordText());
     }
 
     @Test
@@ -89,6 +89,6 @@ public class LoginTest extends BaseTest {
         loginPage.sendKeysPsw(TestDataGenerator.getValidPsw());
         loginPage.clickLogin();
 
-        Assertions.assertEquals(SUCCESSFUL_LOGIN, loginPage.getPersonalAccountText());
+        Assertions.assertEquals(SUCCESSFUL_LOGIN_TITLE, loginPage.getPersonalAccountText());
     }
 }

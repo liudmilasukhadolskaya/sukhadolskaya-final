@@ -39,7 +39,7 @@ public class CartTest extends BaseTest {
         Assertions.assertAll(
                 "Cart validations",
                 () -> Assertions.assertEquals("Корзина", cartPage.getTitleCart(), "Cart title mismatch"),
-                () -> Assertions.assertEquals(1, cartPage.getProductQuantityCartIcon(), "Cart quantity mismatch")
+                () -> Assertions.assertEquals(1, cartPage.getProductQuantityFromCartIcon(), "Cart quantity mismatch")
         );
     }
 
