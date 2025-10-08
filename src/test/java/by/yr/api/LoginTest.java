@@ -36,7 +36,6 @@ public class LoginTest {
         LoginService loginService = new LoginService();
         Response response = loginService.sendLoginRequest(TestDataGenerator.generateRandomEmail(), "", true);
 
-
         assertAll("Login with missing psw validation",
                 () -> assertEquals(422,loginService.getStatusCode(),"Status code mismatch"),
                 () ->assertEquals(INVALID_DATA_MSG,loginService.getMessage()),
