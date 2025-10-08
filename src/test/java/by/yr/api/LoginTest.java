@@ -19,7 +19,7 @@ public class LoginTest {
 
     @Test
     @DisplayName("Verify Login with empty email")
-    public void loginMissingEmail() {
+    public void loginEmptyEmail() {
         LoginService loginService = new LoginService();
         Response response = loginService.sendLoginRequest("", TestDataGenerator.generateRandomString(7), true);
 
@@ -32,7 +32,7 @@ public class LoginTest {
 
     @Test
     @DisplayName("Verify Login with empty password")
-    public void loginMissingPsw() {
+    public void loginEmptyPsw() {
         LoginService loginService = new LoginService();
         Response response = loginService.sendLoginRequest(TestDataGenerator.generateRandomEmail(), "", true);
 
@@ -45,7 +45,7 @@ public class LoginTest {
 
     @Test
     @DisplayName("Verify Login with empty email and password")
-    public void loginMissingEmailAndPsw() {
+    public void loginEmptyEmailAndPsw() {
         LoginService loginService = new LoginService();
         Response response = loginService.sendLoginRequest("", "", true);
 

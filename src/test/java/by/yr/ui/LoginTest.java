@@ -7,15 +7,18 @@ import by.yr.utils.TestDataGenerator;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 @ExtendWith(ScreenshotOnFailureWatcher.class)
 public class LoginTest extends BaseTest {
-        public static final String RETURN_TO_HOME_TITLE = "Вернуться на главную";
-        public static final String INVALID_EMAIL_MSG = "Email* должен быть валидным";
-        public static final String SHORT_PASSWORD_MSG = "Пароль* должен быть больше 6 символов";
-        public static final String REQUIRED_FIELD_MSG = "Это поле является обязательным";
-        public static final String INCORRECT_ACCOUNT_MSG = "Проверьте корректность введенных данных";
-        public static final String CREATE_NEW_PASSWORD_TITLE = "Новый пароль";
-        public static final String SUCCESSFUL_LOGIN_TITLE = "Здравствуйте, Юля!";
+    public static final String RETURN_TO_HOME_TITLE = "Вернуться на главную";
+    public static final String INVALID_EMAIL_MSG = "Email* должен быть валидным";
+    public static final String SHORT_PASSWORD_MSG = "Пароль* должен быть больше 6 символов";
+    public static final String REQUIRED_FIELD_MSG = "Это поле является обязательным";
+    public static final String INCORRECT_ACCOUNT_MSG = "Проверьте корректность введенных данных";
+    public static final String CREATE_NEW_PASSWORD_TITLE = "Новый пароль";
+    public static final String SUCCESSFUL_LOGIN_TITLE = "Здравствуйте, Юля!";
 
     @BeforeEach
     public void goToLoginPage() {
@@ -26,18 +29,19 @@ public class LoginTest extends BaseTest {
     @Test
     @DisplayName("Verify that Login Page is opened")
     public void loginPageOpened() {
-       LoginPage loginPage = new LoginPage();
+        LoginPage loginPage = new LoginPage();
         Assertions.assertEquals(RETURN_TO_HOME_TITLE, loginPage.getTitleReturnToHP());
     }
 
     @Test
-    @DisplayName("Verify the msg for invalid email and missing psw")
-    public void invalidEmailMissingPsw() {
+    @DisplayName("Verify the msg for empty psw")
+    public void emptyPsw() {
         LoginPage loginPage = new LoginPage();
-        loginPage.sendKeysEmail(TestDataGenerator.generateRandomString(5));
+        loginPage.sendKeysEmail(TestDataGenerator.generateRandomEmail());
+        loginPage.clickPasswordField();
         loginPage.clickLoginWithActions();
 
-        Assertions.assertEquals(INVALID_EMAIL_MSG, loginPage.getTitleInvalidEmail());
+        Assertions.assertEquals(REQUIRED_FIELD_MSG, loginPage.getTitleInvalidPassword());
     }
 
     @Test
@@ -52,15 +56,27 @@ public class LoginTest extends BaseTest {
     }
 
     @Test
-    @DisplayName("Verify the msg for missing email")
-    public void missingEmail() {
+    @DisplayName("Verify the msg for empty email")
+    public void emptyEmail() {
         LoginPage loginPage = new LoginPage();
-        loginPage.sendKeysPsw(TestDataGenerator.generateRandomString(7));
-        loginPage.clickLoginWithActions();
         loginPage.clickEmailField();
+        loginPage.sendKeysPsw(TestDataGenerator.generateRandomString(7));
         loginPage.clickLoginWithActions();
 
         Assertions.assertEquals(REQUIRED_FIELD_MSG, loginPage.getTitleInvalidEmail());
+    }
+
+    @Test
+    @DisplayName("Verify the msg for empty email and password")
+    public void emptyEmailAndPsw() {
+        LoginPage loginPage = new LoginPage();
+        loginPage.clickEmailField();
+        loginPage.clickPasswordField();
+        loginPage.clickLoginWithActions();
+
+        assertAll("Login with missing email and psw validation",
+                () -> assertEquals(REQUIRED_FIELD_MSG, loginPage.getTitleInvalidEmail()),
+                () -> assertEquals(REQUIRED_FIELD_MSG, loginPage.getTitleInvalidPassword()));
     }
 
     @Test
