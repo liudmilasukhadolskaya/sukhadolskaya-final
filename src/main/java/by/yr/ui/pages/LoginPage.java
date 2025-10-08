@@ -1,6 +1,7 @@
 package by.yr.ui.pages;
 
 import by.yr.ui.utils.DriverUtils;
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 
 public class LoginPage {
@@ -37,23 +38,27 @@ public class LoginPage {
         return DriverUtils.getTextFromElement(TITLE_PSW_VALIDATION);
     }
 
+    @Step("Enter email: {email}")
     public void sendKeysEmail(String email) {
       DriverUtils.sendKeysToElement(INPUT_EMAIL, email);
     }
 
+    @Step("Enter password: {password}")
     public void sendKeysPsw(String password) {
         DriverUtils.sendKeysToElement(INPUT_PASSWORD, password);
     }
 
+    @Step("Click login")
     public void clickLogin() {
         DriverUtils.clickElement(BUTTON_SUBMIT);
     }
 
+    @Step("Click login")
     public void clickLoginWithActions(){
         DriverUtils.clickElementWithActions(BUTTON_SUBMIT);
     }
 
-
+    @Step("Click Create New Password link")
     public void clickCreateNewPassword() {
         DriverUtils.clickElement(LINK_CREATE_NEW_PSW);
     }

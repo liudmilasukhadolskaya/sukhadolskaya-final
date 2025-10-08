@@ -2,11 +2,14 @@ package by.yr.ui;
 
 import by.yr.ui.pages.CartPage;
 import by.yr.ui.pages.SearchPage;
+import by.yr.utils.ScreenshotOnFailureWatcher;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
+@ExtendWith(ScreenshotOnFailureWatcher.class)
 public class CartTest extends BaseTest {
     private SearchPage searchPage;
 

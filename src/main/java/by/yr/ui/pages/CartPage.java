@@ -2,6 +2,7 @@ package by.yr.ui.pages
         ;
 
 import by.yr.ui.utils.DriverUtils;
+import io.qameta.allure.Step;
 
 public class CartPage {
     private final String BUTTON_ADD_TO_BASKET = "(//button[@class='basket-btn eye-button unselectable'])[%d]";
@@ -19,12 +20,12 @@ public class CartPage {
     private final String TITLE_PRODUCT_NAME_IN_CART_DIALOG = "//h3[@class='product-title']";
     private final String BUTTTON_CLOSE_DIALOG = "//button[@class='nsm-dialog-btn-close ng-star-inserted']";
 
-
+@Step("Click Add to Cart button")
     public void clickAddToCartItem(int index) {
         String xpath = String.format(BUTTON_ADD_TO_BASKET, index);
         DriverUtils.clickElement(xpath);
     }
-
+@Step("Click Add to Cart button and Click Go To Basket")
     public void clickAddToCartAndGo(int index) {
         clickAddToCartItem(index);
         DriverUtils.clickElement(LINK_GO_TO_BASKET);
@@ -58,9 +59,9 @@ public class CartPage {
         return DriverUtils.getTextAsInt(CART_ICON_PRODUCT_QUANTITY);
     }
 
+    @Step("Click Remove product from Cart")
     public void clickRemoveItemFromCart(int index) {
      String locator=String.format(BUTTON_REMOVE_FROM_CART,index);
-    // DriverUtils.waitUntilClickable(locator);
         DriverUtils.clickElement(locator);
         DriverUtils.sleep(10);
     }
@@ -80,7 +81,7 @@ public class CartPage {
     public String getGoToCartText() {
         return DriverUtils.getTextFromElement(LINK_GO_TO_BASKET);
     }
-
+@Step("Close dialog pop up")
     public void closeDialogPopUp() {
         DriverUtils.clickElement(BUTTTON_CLOSE_DIALOG);
     }

@@ -1,6 +1,7 @@
 package by.yr.ui.pages;
 
 import by.yr.ui.utils.DriverUtils;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
@@ -21,6 +22,7 @@ public class SearchPage {
     private final String PRICE_FOR_PRODUCT_TEXT = "(//div[@class='products']//span[@itemprop='price'])[%d]";
     private WebElement selectedCategory;
 
+    @Step("Enter {search} in a search field and Press Enter")
     public void sendKeysSearch(String search) {
         DriverUtils.sendKeysToElement(INPUT_SEARCH_FIELD, search + Keys.ENTER);
     }
@@ -46,7 +48,7 @@ public class SearchPage {
     public String getPriceForProductByPosition(int index) {
         return DriverUtils.getTextFromElement(String.format(PRICE_FOR_PRODUCT_TEXT, index));
     }
-
+@Step("Click random category from top nav")
     public void pickRandomCategory() {
         List<WebElement> categories = getAvailableCategories();
         Random random = new Random();
@@ -64,7 +66,7 @@ public class SearchPage {
         List<String> results = getSearchResultItemsTitleText();
 
         if (results.isEmpty()) {
-            return false; // no results = not relevant
+            return false;
         }
 
         long matches = results.stream()

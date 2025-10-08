@@ -45,7 +45,8 @@ public class SearchTest {
     @Test
     @DisplayName("Verify the search when no results found")
     public void searchWithNoResults() {
-        Response response = searchService.sendSearchProductRequest(TestDataGenerator.generateRandomString(5));
+        String keyword="keyboard";
+        Response response = searchService.sendSearchProductRequest(keyword);
         assertAll("Response validation",
                 () -> assertEquals(200, searchService.getStatusCode(response), "Status code"),
                 () -> assertEquals(0, searchService.getDataSize(response), "Data size"),
