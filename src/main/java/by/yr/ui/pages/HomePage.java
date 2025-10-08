@@ -1,6 +1,9 @@
 package by.yr.ui.pages;
 
 import by.yr.ui.utils.DriverUtils;
+import io.qameta.allure.Step;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -13,6 +16,8 @@ public class HomePage {
     public final String BUTTON_ACCEPT_COOKIES = "//button[.//span[contains(text(),'Принять')]]";
     public final String BUTTON_CLOSE_POPUP = "//button[contains(@class,'nsm-dialog-btn-close')]";
     public final String LINK_PERSONAL_ACCOUNT = "//a[@routerlink='/auth/login']";
+    private static final Logger logger = LogManager.getLogger(HomePage.class);
+
 
     public HomePage() {
 
@@ -30,27 +35,28 @@ public class HomePage {
             );
             DriverUtils.sleep(1);
             DriverUtils.clickElement(BUTTON_ACCEPT_COOKIES);
-            System.out.println("✅ Cookies accepted.");
+            logger.info("✅ Cookies popup accepted successfully.");
         } catch (Exception e) {
-            System.out.println("⚠️ Cookies msg not found or already closed.");
+            logger.warn("⚠️ Cookies popup not found or already closed. Message: {}", e.getMessage());
         }
         return this;
     }
 
-    public HomePage closePopup() {
+    public HomePage closeSelectLanguagePopup() {
         try {
             WebDriverWait wait = new WebDriverWait(DriverUtils.getDriver(), Duration.ofSeconds(15));
             WebElement closeBtn = wait.until(
                     ExpectedConditions.elementToBeClickable(By.xpath(BUTTON_CLOSE_POPUP))
             );
             DriverUtils.clickElement(BUTTON_CLOSE_POPUP);
-            System.out.println("✅ Popup closed.");
+            logger.info("✅ Select Language popup closed successfully.");
         } catch (Exception e) {
-            System.out.println("⚠️ Popup not found or already closed.");
+            logger.warn("⚠️ Select Language popup not found or already closed. Message: {}", e.getMessage());
         }
         return this;
     }
 
+    @Step("Click Personal Account")
     public void clickPersonalAccount() {
         DriverUtils.clickElement(LINK_PERSONAL_ACCOUNT);
     }

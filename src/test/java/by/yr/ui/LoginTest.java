@@ -2,9 +2,12 @@ package by.yr.ui;
 
 import by.yr.ui.pages.HomePage;
 import by.yr.ui.pages.LoginPage;
+import by.yr.utils.ScreenshotOnFailureWatcher;
 import by.yr.utils.TestDataGenerator;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.extension.ExtendWith;
 
+@ExtendWith(ScreenshotOnFailureWatcher.class)
 public class LoginTest extends BaseTest {
         public static final String RETURN_TO_HOME_TITLE = "Вернуться на главную";
         public static final String INVALID_EMAIL_MSG = "Email* должен быть валидным";

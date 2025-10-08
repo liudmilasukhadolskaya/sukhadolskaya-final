@@ -11,7 +11,7 @@ public class BaseTest {
         HomePage homePage = new HomePage();
         homePage.openSite();
         homePage.acceptCookies();
-        homePage.closePopup();
+        homePage.closeSelectLanguagePopup();
     }
 
   @AfterEach

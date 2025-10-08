@@ -1,6 +1,7 @@
 package by.yr.ui.utils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -15,7 +16,23 @@ public class DriverUtils {
 
     public static org.openqa.selenium.WebDriver getDriver() {
         if (driver == null) {
-            driver = new ChromeDriver();
+            ChromeOptions options = new ChromeOptions();
+            // You can control this from the command line: -Dheadless=true or -Dheadless=false
+            boolean isHeadless = Boolean.parseBoolean(System.getProperty("headless", "true"));
+            if (isHeadless) {
+                options.addArguments("--headless=new");
+                System.out.println("🧠 Running in headless mode");
+            } else {
+                System.out.println("🧠 Running with visible browser");
+            }
+
+            options.addArguments("--disable-gpu");
+            options.addArguments("--window-size=1920,1080");
+            options.addArguments("--no-sandbox");
+            options.addArguments("--disable-dev-shm-usage");
+            options.addArguments("--remote-allow-origins=*");
+
+            driver = new ChromeDriver(options);
             driver.manage().window().maximize();
             driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         }
