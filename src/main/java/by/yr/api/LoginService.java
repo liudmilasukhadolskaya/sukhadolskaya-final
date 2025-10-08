@@ -1,5 +1,6 @@
 package by.yr.api;
 
+import com.google.gson.JsonObject;
 import io.restassured.response.Response;
 
 public class LoginService {
@@ -7,14 +8,17 @@ public class LoginService {
 
     public Response sendLoginRequest(String email, String password, boolean remember) {
         ApiService apiService = new ApiService();
-        String body = "{"
-                + (email != null ? "\"email\":\"" + email + "\"," : "")
-                + (password != null ? "\"password\":\"" + password + "\"," : "")
-                + "\"remember\":" + remember
-                + "}";
-
-        lastResponse= apiService.doPost(ApiConstants.LOGIN_URL, body);
+        String body = buildLoginBody(email, password, remember);
+        lastResponse = apiService.doPost(ApiConstants.LOGIN_URL, body);
         return lastResponse;
+    }
+
+    private String buildLoginBody(String email, String password, boolean remember) {
+        JsonObject json = new JsonObject();
+        json.addProperty("email", email);
+        json.addProperty("password", password);
+        json.addProperty("remember", remember);
+        return json.toString();
     }
 
     public String getEmailError() {
@@ -29,11 +33,11 @@ public class LoginService {
         return lastResponse.path("message");
     }
 
-    public int getStatusCode(){
+    public int getStatusCode() {
         return lastResponse.getStatusCode();
     }
 
-    public String getToken(){
+    public String getToken() {
         return lastResponse.path("token");
     }
 }
