@@ -2,7 +2,6 @@ package by.yr.ui.pages;
 
 import by.yr.ui.utils.DriverUtils;
 import io.qameta.allure.Step;
-import org.openqa.selenium.WebDriver;
 
 public class LoginPage {
     private final String INPUT_EMAIL = "//input[@id='user-email']";
@@ -15,12 +14,6 @@ public class LoginPage {
     private final String LINK_RETURN_TO_HP = "//div[@class='back-to-the-main']/p";
     public final String TITLE_NEW_PSW = "//form[@class='ng-untouched ng-pristine ng-invalid']/h2";
     public final String TITLE_IN_PERSONAL_ACCOUNT = "//div[@class='sidebar']/h2";
-
-    private WebDriver driver;
-
-    public LoginPage() {
-        this.driver = DriverUtils.getDriver();
-    }
 
     public String getTitleReturnToHP() {
         return DriverUtils.getTextFromElement(LINK_RETURN_TO_HP);
@@ -40,7 +33,7 @@ public class LoginPage {
 
     @Step("Enter email: {email}")
     public void sendKeysEmail(String email) {
-      DriverUtils.sendKeysToElement(INPUT_EMAIL, email);
+        DriverUtils.sendKeysToElement(INPUT_EMAIL, email);
     }
 
     @Step("Enter password: {password}")
@@ -54,7 +47,7 @@ public class LoginPage {
     }
 
     @Step("Click login")
-    public void clickLoginWithActions(){
+    public void clickLoginWithActions() {
         DriverUtils.clickElementWithActions(BUTTON_SUBMIT);
     }
 
@@ -71,7 +64,11 @@ public class LoginPage {
         return DriverUtils.getTextFromElement(TITLE_IN_PERSONAL_ACCOUNT);
     }
 
-    public void clickEmailField(){
+    public void clickEmailField() {
         DriverUtils.clickElement(INPUT_EMAIL);
+    }
+
+    public void clickPasswordField() {
+        DriverUtils.clickElement(INPUT_PASSWORD);
     }
 }
