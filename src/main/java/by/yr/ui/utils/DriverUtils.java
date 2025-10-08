@@ -1,4 +1,6 @@
 package by.yr.ui.utils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -13,6 +15,8 @@ import java.util.List;
 public class DriverUtils {
     private static org.openqa.selenium.WebDriver driver;
     private static final Duration DEFAULT_WAIT=Duration.ofSeconds(10);
+    private static final Logger logger = LogManager.getLogger(DriverUtils.class);
+
 
     public static org.openqa.selenium.WebDriver getDriver() {
         if (driver == null) {
@@ -21,9 +25,9 @@ public class DriverUtils {
             boolean isHeadless = Boolean.parseBoolean(System.getProperty("headless", "true"));
             if (isHeadless) {
                 options.addArguments("--headless=new");
-                System.out.println("🧠 Running in headless mode");
+                logger.info("🧠 Running in headless mode");
             } else {
-                System.out.println("🧠 Running with visible browser");
+              logger.info("🧠 Running with visible browser");
             }
 
             options.addArguments("--disable-gpu");
@@ -43,21 +47,27 @@ public class DriverUtils {
         if (driver != null) {
             driver.quit();
             driver = null;
+            logger.info("🧹 WebDriver closed successfully");
         }
     }
 
     public static void sleep(int seconds) {
         try {
-            Thread.sleep(seconds * 1000);
+            Thread.sleep(seconds * 1000L);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt(); // restore interrupted status
-            System.err.println("Sleep was interrupted: " + e.getMessage());
+            logger.warn("Sleep was interrupted: {} ", e.getMessage());
         }
     }
 
     public static WebElement findElement(String xpath) {
         WebDriverWait wait=new WebDriverWait(getDriver(),DEFAULT_WAIT);
-        return wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath)));
+        try {
+            return wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath)));
+        }catch (TimeoutException e){
+            logger.error("❌ Element not found by xpath: {}", xpath);
+            throw e;
+        }
     }
 
     public static List<WebElement>findElements(String xpath){
@@ -73,15 +83,18 @@ public class DriverUtils {
             try {
                 WebElement element = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpath)));
                 element.click();
+                logger.info("✅ Clicked element: {}", xpath);
                 return;
             } catch (StaleElementReferenceException e) {
-                System.out.println("⚠️ Stale element, retrying... (" + (i + 1) + ")");
+                logger.warn("⚠️ Stale element, retrying... attempt {}", i+1);
                 DriverUtils.sleep(1);
             } catch (ElementClickInterceptedException e) {
+                logger.warn("⚠️ Click intercepted. Retrying using JavaScript for: {}", xpath);
                 WebElement element = getDriver().findElement(By.xpath(xpath));
-                JavascriptExecutor js = (JavascriptExecutor) getDriver();
-                js.executeScript("arguments[0].click();", element);
+                ((JavascriptExecutor) getDriver()).executeScript("arguments[0].click();", element);
                 return;
+            } catch (Exception e) {
+                logger.error("❌ Failed to click element: {} - {}", xpath, e.getMessage());
             }
         }
         throw new RuntimeException("Failed to click element after retries: " + xpath);
@@ -91,10 +104,12 @@ public class DriverUtils {
         WebElement element = driver.findElement(By.xpath(locator));
         Actions actions = new Actions(driver);
         actions.moveToElement(element).click().perform();
-    }
+        logger.info("✅ Clicked element using Actions: {}", locator);
+            }
 
     public static void sendKeysToElement(String xpath, String value) {
         findElement(xpath).sendKeys(value);
+        logger.info("⌨️ Sent keys to element: {} -> '{}'", xpath, value);
     }
 
     public static String getTextFromElement(String xpath) {
@@ -102,7 +117,11 @@ public class DriverUtils {
         return wait.until(driver -> {
             WebElement element = driver.findElement(By.xpath(xpath));
             String text = element.getText();
-            return (text != null && !text.trim().isEmpty()) ? text : null;
+            if (text != null && !text.trim().isEmpty()) {
+                logger.info("📄 Text from {}: '{}'", xpath, text);
+                return text;
+            }
+            return null;
         });
     }
 

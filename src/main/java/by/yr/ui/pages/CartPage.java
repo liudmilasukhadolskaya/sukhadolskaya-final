@@ -3,6 +3,8 @@ package by.yr.ui.pages
 
 import by.yr.ui.utils.DriverUtils;
 import io.qameta.allure.Step;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class CartPage {
     private final String BUTTON_ADD_TO_BASKET = "(//button[@class='basket-btn eye-button unselectable'])[%d]";
@@ -19,20 +21,26 @@ public class CartPage {
     private final String TITLE_PRODUCT_QUANTITY = "(//div[@class='quantity']//div[@class='unselectable']/span[2])[%d]";
     private final String TITLE_PRODUCT_NAME_IN_CART_DIALOG = "//h3[@class='product-title']";
     private final String BUTTTON_CLOSE_DIALOG = "//button[@class='nsm-dialog-btn-close ng-star-inserted']";
+    private static final Logger logger = LogManager.getLogger(CartPage.class);
 
-@Step("Click Add to Cart button")
+
+    @Step("Click Add to Cart button")
     public void clickAddToCartItem(int index) {
         String xpath = String.format(BUTTON_ADD_TO_BASKET, index);
+        logger.info("Clicking Add to Cart for item at index {}", index);
         DriverUtils.clickElement(xpath);
     }
 @Step("Click Add to Cart button and Click Go To Basket")
     public void clickAddToCartAndGo(int index) {
+    logger.info("Adding item at index {} to cart and going to basket", index);
         clickAddToCartItem(index);
         DriverUtils.clickElement(LINK_GO_TO_BASKET);
     }
 
     public String getProductNameFromCartByPosition(int index) {
-        return DriverUtils.getTextFromElement(String.format(TITLE_PRODUCT, index));
+        String productName=DriverUtils.getTextFromElement(String.format(TITLE_PRODUCT, index));
+        logger.info("Product name at position {} is '{}'", index, productName);
+        return productName;
     }
 
     public String getTitleCart() {
@@ -63,6 +71,7 @@ public class CartPage {
     public void clickRemoveItemFromCart(int index) {
      String locator=String.format(BUTTON_REMOVE_FROM_CART,index);
         DriverUtils.clickElement(locator);
+        logger.info("Attempting to remove product at index {} from cart", index);
         DriverUtils.sleep(10);
     }
 
