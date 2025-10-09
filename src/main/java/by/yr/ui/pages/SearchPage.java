@@ -83,8 +83,7 @@ public class SearchPage {
         double ratio = (double) matches / results.size();
         return ratio >= threshold;
     }
-
-    @Step("Search for product and verify presence of '{keyword}' in results")
+    
     public boolean searchAndVerifyResult(String keyword) {
         sendKeysSearch(keyword);
         List<String> results = getSearchResultItemsTitleText();
