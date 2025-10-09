@@ -13,11 +13,10 @@ import java.time.Duration;
 
 public class HomePage {
     private final String URL = "https://www.y-r.by";
-    public final String BUTTON_ACCEPT_COOKIES = "//button[.//span[contains(text(),'Принять')]]";
+    public final String BUTTON_ACCEPT_COOKIES = "//button[@class='btn cookie-actions-button'][2]";
     public final String BUTTON_CLOSE_POPUP = "//button[contains(@class,'nsm-dialog-btn-close')]";
     public final String LINK_PERSONAL_ACCOUNT = "//a[@routerlink='/auth/login']";
     private static final Logger logger = LogManager.getLogger(HomePage.class);
-
 
     public HomePage() {
 
@@ -61,4 +60,3 @@ public class HomePage {
         DriverUtils.clickElement(LINK_PERSONAL_ACCOUNT);
     }
 }
-
