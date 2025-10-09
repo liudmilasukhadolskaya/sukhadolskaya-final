@@ -23,20 +23,14 @@ public class ScreenshotOnFailureWatcher
             if (failed) {
                 WebDriver driver = DriverUtils.getDriver();
 
-                // Wait for the main content or modal to be visible
                 try {
-                    new WebDriverWait(driver, Duration.ofSeconds(5)) // wait max 5 seconds
+                    new WebDriverWait(driver, Duration.ofSeconds(5))
                                                                      .until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("body")));
-                    // Replace 'body' with a more specific element if possible
                 } catch (Exception ignored) {
-                    // If element not visible after timeout, still take screenshot
                 }
-
-                // Take screenshot
                 byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
                 Allure.addAttachment("Screenshot on failure: " + context.getDisplayName(),
                         new ByteArrayInputStream(screenshot));
             }
         }
     }
-
