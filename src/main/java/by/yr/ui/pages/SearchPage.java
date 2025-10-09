@@ -75,10 +75,6 @@ public class SearchPage {
     public boolean areSearchResultsMostlyRelevant(String keyword, double threshold) {
         List<String> results = getSearchResultItemsTitleText();
 
-        if (results.isEmpty()) {
-            return false;
-        }
-
         long matches = results.stream()
                               .map(String::toLowerCase)
                               .filter(title -> title.contains(keyword.toLowerCase()))
@@ -86,5 +82,14 @@ public class SearchPage {
 
         double ratio = (double) matches / results.size();
         return ratio >= threshold;
+    }
+
+    @Step("Search for product and verify presence of '{keyword}' in results")
+    public boolean searchAndVerifyResult(String keyword) {
+        sendKeysSearch(keyword);
+        List<String> results = getSearchResultItemsTitleText();
+
+        return results.stream()
+                      .anyMatch(title -> title.contains(keyword.toLowerCase()));
     }
 }
