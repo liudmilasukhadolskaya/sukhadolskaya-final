@@ -90,7 +90,8 @@ public class CartPage {
     public String getGoToCartText() {
         return DriverUtils.getTextFromElement(LINK_GO_TO_BASKET);
     }
-@Step("Close dialog pop up")
+
+    @Step("Close dialog pop up")
     public void closeDialogPopUp() {
         DriverUtils.clickElement(BUTTTON_CLOSE_DIALOG);
     }
