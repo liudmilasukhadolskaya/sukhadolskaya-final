@@ -19,3 +19,33 @@ API tests cover:
 - **Search API** – verify product search results with different query values.
 
 ---
+## 🧰 Technologies and Tools
+
+- **Java 21**
+- **JUnit 5**
+- **Selenium WebDriver**
+- **Rest Assured** (for API testing)
+- **Maven** (build and dependency management)
+- **Allure** (test reporting)
+- **ChromeDriver** (for browser automation)
+
+---
+
+## 🚀 How to Run Tests
+
+### Prerequisites
+- Java 21 or higher installed
+- Maven installed
+- Chrome browser and matching ChromeDriver version
+- Allure Commandline installed (for report generation)
+
+### Run all tests
+bash
+mvn clean test
+
+### 📊 Test Results
+After running the tests, you can view results in the Allure report.
+
+---
+## 🧑‍💻 Author
+Liudmila Sukhadolskaya

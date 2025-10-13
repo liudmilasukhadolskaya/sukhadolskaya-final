@@ -91,6 +91,17 @@ public class LoginTest extends BaseTest {
     }
 
     @Test
+    @DisplayName("Verify the msg for incorrect email format")
+    public void incorrectEmail() {
+        LoginPage loginPage = new LoginPage();
+        loginPage.sendKeysEmail(TestDataGenerator.generateRandomString(5));
+        loginPage.sendKeysPsw(TestDataGenerator.generateRandomString(7));
+        loginPage.clickLoginWithActions();
+
+        Assertions.assertEquals(INVALID_EMAIL_MSG, loginPage.getTitleInvalidEmail());
+    }
+
+    @Test
     @DisplayName("Verify Create New PSW link works")
     public void newPswLink() {
         LoginPage loginPage = new LoginPage();

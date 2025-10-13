@@ -21,7 +21,6 @@ public class DriverUtils {
     public static org.openqa.selenium.WebDriver getDriver() {
         if (driver == null) {
             ChromeOptions options = new ChromeOptions();
-            // You can control this from the command line: -Dheadless=true or -Dheadless=false
             boolean isHeadless = Boolean.parseBoolean(System.getProperty("headless", "true"));
             if (isHeadless) {
                 options.addArguments("--headless=new");
