@@ -1,12 +1,15 @@
 package by.yr.ui;
 
 import by.yr.ui.pages.SearchPage;
+import by.yr.utils.ScreenshotOnFailureWatcher;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 
+@ExtendWith(ScreenshotOnFailureWatcher.class)
 public class SearchTest extends BaseTest {
     public static final String noResultsMsg = """
             Упс

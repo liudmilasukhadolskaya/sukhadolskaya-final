@@ -21,7 +21,7 @@ public class CartTest extends BaseTest {
 
     @Test
     @DisplayName("Verify dialog pop up is opened after clicking Add To Cart")
-    public void test1() {
+    public void dialogPopupOpened() {
         String expectedProductName = searchPage.getProductNameByPosition(1);
         CartPage cartPage = new CartPage();
         cartPage.clickAddToCartAndGo(1);
@@ -35,7 +35,7 @@ public class CartTest extends BaseTest {
 
     @Test
     @DisplayName("Verify that Cart is opened after adding the product")
-    public void test2() {
+    public void cartIsOpened() {
         CartPage cartPage = new CartPage();
         cartPage.clickAddToCartAndGo(1);
 
@@ -48,7 +48,7 @@ public class CartTest extends BaseTest {
 
     @Test
     @DisplayName("Verify that the price, name, q-ty are correct in the Cart")
-    public void test3() {
+    public void infoInCart() {
 
         String expectedProduct = searchPage.getProductNameByPosition(1).toLowerCase();
         String expectedPrice = searchPage.getPriceForProductByPosition(1) + " Br";
@@ -66,7 +66,7 @@ public class CartTest extends BaseTest {
 
     @Test
     @DisplayName("Verify that the final price is sum of total and delivery")
-    public void test4() {
+    public void finalPriceCheck() {
         CartPage cartPage = new CartPage();
         cartPage.clickAddToCartAndGo(1);
 
@@ -75,7 +75,7 @@ public class CartTest extends BaseTest {
 
     @Test
     @DisplayName("Verify empty Cart after removing product")
-    public void test5() {
+    public void emptyCart() {
 
         CartPage cartPage = new CartPage();
         cartPage.clickAddToCartAndGo(1);
@@ -86,7 +86,7 @@ public class CartTest extends BaseTest {
 
     @Test
     @DisplayName("Verify that the price, name, q-ty are correct for 2 products")
-    public void test6() {
+    public void cartForTwoProducts() {
 
         String expectedProduct1 = searchPage.getProductNameByPosition(1).toLowerCase();
         String expectedPrice1 = searchPage.getPriceForProductByPosition(1) + " Br";
@@ -111,7 +111,7 @@ public class CartTest extends BaseTest {
 
     @Test
     @DisplayName("Verify 1 product left after removing another one")
-    public void test7() {
+    public void removeOneProductFromCart() {
 
         String expectedProduct1 = searchPage.getProductNameByPosition(1).toLowerCase();
         String expectedPrice1 = searchPage.getPriceForProductByPosition(1) + " Br";
