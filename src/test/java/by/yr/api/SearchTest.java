@@ -53,7 +53,7 @@ public class SearchTest {
         Response response = searchService.sendSearchProductRequest(keyword);
         assertAll("Response validation",
                 () -> assertEquals(200, searchService.getStatusCode(response), "Status code mismatch"),
-                () -> assertEquals(0, searchService.getDataSize(response), "Ddata.size() should be 0")
+                () -> assertEquals(0, searchService.getDataSize(response), "data.size() should be 0")
                );
     }
 }

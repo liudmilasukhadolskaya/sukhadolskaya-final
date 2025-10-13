@@ -11,6 +11,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 
 @ExtendWith(ScreenshotOnFailureWatcher.class)
 public class CartTest extends BaseTest {
+    public static final String GO_TO_CART_TEXT = "ПЕРЕЙТИ В КОРЗИНУ";
+    public static final String CART_TITLE = "Корзина";
+    public static final String CART_IS_EMPTY_TITLE = "Ваша корзина пуста";
     private SearchPage searchPage;
 
     @BeforeEach
@@ -29,7 +32,7 @@ public class CartTest extends BaseTest {
         Assertions.assertAll(
                 "Dialog pop up validations",
                 () -> Assertions.assertEquals(expectedProductName, cartPage.getProductNameFromDialog(), "Product name mismatch"),
-                () -> Assertions.assertEquals("ПЕРЕЙТИ В КОРЗИНУ", cartPage.getGoToCartText(), "Button not found ot text changed")
+                () -> Assertions.assertEquals(GO_TO_CART_TEXT, cartPage.getGoToCartText(), "Button not found ot text changed")
         );
     }
 
@@ -41,7 +44,7 @@ public class CartTest extends BaseTest {
 
         Assertions.assertAll(
                 "Cart validations",
-                () -> Assertions.assertEquals("Корзина", cartPage.getTitleCart(), "Cart title mismatch"),
+                () -> Assertions.assertEquals(CART_TITLE, cartPage.getTitleCart(), "Cart title mismatch"),
                 () -> Assertions.assertEquals(1, cartPage.getProductQuantityFromCartIcon(), "Cart quantity mismatch")
         );
     }
@@ -81,7 +84,7 @@ public class CartTest extends BaseTest {
         cartPage.clickAddToCartAndGo(1);
         cartPage.clickRemoveItemFromCart(1);
 
-        Assertions.assertEquals("Ваша корзина пуста", cartPage.getEmptyCartText());
+        Assertions.assertEquals(CART_IS_EMPTY_TITLE, cartPage.getEmptyCartText());
     }
 
     @Test
