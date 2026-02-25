@@ -45,7 +45,8 @@ mvn clean test
 
 ### 📊 Test Results
 After running the tests, you can view results in the Allure report.
-
+cd ..
+allure serve target/allure-results
 ---
 ## 🧑‍💻 Author
 Liudmila Sukhadolskaya
